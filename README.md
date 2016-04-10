@@ -4,38 +4,37 @@ My First Repository
 
 Implementa un juego de "Connect Four" que se conecte a una base de datos.  La base de datos debe guardar el nombre de usuario de los jugadores y sus respectivas puntuaciones de juegos ganados, perdidos y empatados. Cuando el juego empieza, el juego le preguntará a los jugadores que entren sus nombres de usuario.  Cuando un jugador gane su puntuación de ganadas debe ser actualizada, cuando pierda su puntuación de perdidas debe ser actualizada, y finalmente si empata su puntuación de empates debe ser actualizada. Los detalles de la implementación están a tu discreción, pero tu código DEBE seguir la estructura encontrada en el archivo "ConnectFour.java" adjunto.
 
-package connectfourdb;
+    package connectfourdb;
+    import java.sql.*;
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
+    import java.sql.Statement;
+    import java.sql.ResultSet;
+    import java.util.Scanner;
 
-import java.sql.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.util.Scanner;
-
-/**
- *
- * 
- */
-public class ConnectFourDB 
-{
+     /**
+    *
+    * 
+    */
+   public class ConnectFourDB 
+   {
    /**************************************************************************\
    |* Game Constants                                                         *|
    \**************************************************************************/
 
-   public static final String RED = "X" ;
+    public static final String RED = "X" ;
 
-   public static final String BLACK = "O" ;
+    public static final String BLACK = "O" ;
 
-   public static final String EMPTY = " " ;
+    public static final String EMPTY = " " ;
 
-   public static final int ROWS = 6 ;
+    public static final int ROWS = 6 ;
 
-   public static final int COLS = 7 ;
+    public static final int COLS = 7 ;
    
-   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost/STUDENTS";
+     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+     static final String DB_URL = "jdbc:mysql://localhost/STUDENTS";
    
    static final String USER = "username";
 
@@ -43,14 +42,14 @@ public class ConnectFourDB
    |* Game State                                                             *|
    \**************************************************************************/
 
-   public String[][] board ;
-   public boolean isPlayerOneTurn ;
+    public String[][] board ;
+    public boolean isPlayerOneTurn ;
 
    /**************************************************************************\
    |* Other Game Data Objects and Components                                 *|
    \**************************************************************************/
 
-   private Scanner keyboard ;
+    private Scanner keyboard ;
 
    /**************************************************************************\
    |*                                                                        *|
@@ -113,21 +112,21 @@ public class ConnectFourDB
         System.out.println("Goodbye!");
     }
     
+     /**************************************************************************\
+     |*                                                                        *|
+     \**************************************************************************/
+
+    public ConnectFourDB()
+    {
+
+    }
+
     /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
+    |*                                                                        *|
+    \**************************************************************************/
 
-   public ConnectFourDB()
-   {
-
-   }
-
- /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public void start()
-   {
+      public void start()
+      {
       int input ;
 
       init() ;                           // 1. Initialize Environment and Variables
@@ -159,8 +158,8 @@ public class ConnectFourDB
    |*                                                                        *|
    \**************************************************************************/
 
-   public void init()
-   {
+    public void init()
+    {
       board = new String[ROWS][COLS] ;
 
       for(int i=0 ; i<ROWS ; i++)
@@ -171,11 +170,11 @@ public class ConnectFourDB
          }
       }
 
-     // board[5][1] = BLACK ;
-     // board[5][2] = BLACK ;
-     // board[5][3] = BLACK ;
-     // board[4][2] = BLACK ;
-     // board[4][3] = BLACK ;
+      // board[5][1] = BLACK ;
+      // board[5][2] = BLACK ;
+      // board[5][3] = BLACK ;
+      // board[4][2] = BLACK ;
+      // board[4][3] = BLACK ;
     //  board[3][3] = BLACK ;
 
     //  board[5][0] = RED ;
@@ -189,25 +188,25 @@ public class ConnectFourDB
     //  board[0][4] = RED ;
     //  board[0][5] = BLACK ;
 
-      isPlayerOneTurn = true ;
+       isPlayerOneTurn = true ;
 
-      keyboard = new Scanner(System.in) ;
+        keyboard = new Scanner(System.in) ;
    }
 
    /**************************************************************************\
    |*                                                                        *|
    \**************************************************************************/
 
-   public void showStartScreen()
-   {
+     public void showStartScreen()
+     {
       System.out.println("Welcome to Connect Four!") ;
-   }
+     }
 
    /**************************************************************************\
    |*                                                                        *|
    \**************************************************************************/
 
-   public void showBoard()
+      public void showBoard()
    {
       String output = " " ;
 
@@ -243,7 +242,7 @@ public class ConnectFourDB
    |*                                                                        *|
    \**************************************************************************/
 
-   public void showUserInputOptions()
+    public void showUserInputOptions()
    {
       String player = (isPlayerOneTurn) ? "1" : "2" ;
 
@@ -254,7 +253,7 @@ public class ConnectFourDB
    |*                                                                        *|
    \**************************************************************************/
 
-   public int getUserInput()
+    public int getUserInput()
    {
       if(keyboard.hasNextInt())
       {
@@ -266,16 +265,14 @@ public class ConnectFourDB
          return -1 ;
       }
    }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public boolean checkUserInput(int input)
-   {
+      /**************************************************************************\
+     |*                                                                        *|
+     \**************************************************************************/
+      public boolean checkUserInput(int input)
+     {
       if(input < 0 || input >= COLS)
       {
-         System.out.println("You MORON, READ OR FEAR THE DARK SIDE OF THE FORCE IF NOT THEN SUFFER THE WRATH OF NARUTO UZUMAKI THE NINE TAILS JINCHURIKI") ;
+         System.out.println("You MORON, READ OR FEAR THE DARK SIDE OF THE FORCE IF NOT THEN SUFFER THE WRATH OF NARUTO UZUMAKI THE             NINE TAILS JINCHURIKI") ;
 
          return false ;
       }
@@ -319,38 +316,33 @@ public class ConnectFourDB
    /**************************************************************************\
    |*                                                                        *|
    \**************************************************************************/
-
-   public boolean isEmpty(int row, int col)
-   {
+     public boolean isEmpty(int row, int col)
+     {
       return (board[row][col] == EMPTY) ;
-   }
-
+     }
    /**************************************************************************\
    |*                                                                        *|
    \**************************************************************************/
-
-   public void updateGameState()
-   {
+     public void updateGameState()
+     {
       isPlayerOneTurn = !isPlayerOneTurn ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public boolean isGameOver()
-   {
+     }
+    /**************************************************************************\
+    |*                                                                        *|
+    \**************************************************************************/
+     public boolean isGameOver()
+     {
       System.out.println("Checking if game is over.") ;
-
+      
       return checkWin(RED) || checkWin(BLACK) || checkDraw() ;
-   }
+     }
 
    /**************************************************************************\
    |*                                                                        *|
    \**************************************************************************/
 
-   public boolean checkWin(String m)
-   {
+    public boolean checkWin(String m)
+    {
       for(int i=0 ; i<ROWS ; i++)
       {
          for(int j=0 ; j<COLS ; j++)
@@ -364,16 +356,13 @@ public class ConnectFourDB
             }
          }
       }
-
-      return false ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public boolean checkColWin(int r, int c, String m)
-   {
+       return false ;
+     }
+    /**************************************************************************\
+    |*                                                                        *|
+    \**************************************************************************/
+    public boolean checkColWin(int r, int c, String m)
+    {
       if(r <= ROWS-4)
       {
          return board[r+0][c] == m &&
@@ -381,13 +370,11 @@ public class ConnectFourDB
                 board[r+2][c] == m &&
                 board[r+3][c] == m ;
       }
-
       return false ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
+     }
+    /**************************************************************************\
+    |*                                                                        *|
+    \**************************************************************************/
 
    public boolean checkRowWin(int r, int c, String m)
    {
