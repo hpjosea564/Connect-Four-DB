@@ -17,11 +17,11 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
     *
     * 
     */
-   public class ConnectFourDB 
-   {
-   /**************************************************************************\
-   |* Game Constants                                                         *|
-   \**************************************************************************/
+     public class ConnectFourDB 
+     {
+      /**************************************************************************\
+      |* Game Constants                                                         *|
+      \**************************************************************************/
 
     public static final String RED = "X" ;
 
@@ -36,24 +36,24 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
      static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
      static final String DB_URL = "jdbc:mysql://localhost/STUDENTS";
    
-   static final String USER = "username";
+     static final String USER = "username";
 
-   /**************************************************************************\
-   |* Game State                                                             *|
-   \**************************************************************************/
+     /**************************************************************************\
+     |* Game State                                                             *|
+     \**************************************************************************/
 
-    public String[][] board ;
-    public boolean isPlayerOneTurn ;
+      public String[][] board ;
+      public boolean isPlayerOneTurn ;
 
-   /**************************************************************************\
-   |* Other Game Data Objects and Components                                 *|
-   \**************************************************************************/
+     /**************************************************************************\
+     |* Other Game Data Objects and Components                                 *|
+     \**************************************************************************/
 
-    private Scanner keyboard ;
+      private Scanner keyboard ;
 
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
+    /**************************************************************************\
+    |*                                                                        *|
+    \**************************************************************************/
 
     /**
      * @param args the command line arguments
@@ -103,18 +103,18 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
             
             System.out.println(id_col + " " + username + " " + WINS + " " + LOSSES + " " + DRAWS + " " + TOTAL);
             
+         }
         }
-       }
         catch (SQLException err){
             System.out.println(err.getMessage());
         }
         
         System.out.println("Goodbye!");
-    }
+      }
     
-     /**************************************************************************\
-     |*                                                                        *|
-     \**************************************************************************/
+      /**************************************************************************\
+      |*                                                                        *|
+      \**************************************************************************/
 
     public ConnectFourDB()
     {
@@ -125,34 +125,34 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
     |*                                                                        *|
     \**************************************************************************/
 
-      public void start()
-      {
-      int input ;
+       public void start()
+       {
+       int input ;
 
-      init() ;                           // 1. Initialize Environment and Variables
+       init() ;                           // 1. Initialize Environment and Variables
 
-      showStartScreen() ;                // 2. Show Start Screen
+       showStartScreen() ;                // 2. Show Start Screen
 
-      do
-      {
-         showBoard() ;                   // 3. Show or Render Board / Scene / Map
+       do
+       {
+          showBoard() ;                   // 3. Show or Render Board / Scene / Map
 
-         do
-         {
-            showUserInputOptions() ;     // 4. Show User Input Options
+          do
+          {
+             showUserInputOptions() ;     // 4. Show User Input Options
 
-            input = getUserInput() ;     // 5. Get User Input
-         }
-         while(!checkUserInput(input)) ; // 6. Validate User Input
+             input = getUserInput() ;     // 5. Get User Input
+          }
+          while(!checkUserInput(input)) ; // 6. Validate User Input
 
-         processUserInput(input) ;       // 7. Process User Input
+          processUserInput(input) ;       // 7. Process User Input
 
-         updateGameState() ;             // 8. Update Game State
+          updateGameState() ;             // 8. Update Game State
 
-      } while(!isGameOver()) ;           // 9. Check for Winning / Losing / Termination Conditions
+       } while(!isGameOver()) ;           // 9. Check for Winning / Losing / Termination Conditions
 
-      showGameOverScreen() ;             // 10. Show Game Results
-   }
+       showGameOverScreen() ;             // 10. Show Game Results
+      }
 
    /**************************************************************************\
    |*                                                                        *|
@@ -191,41 +191,41 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
        isPlayerOneTurn = true ;
 
         keyboard = new Scanner(System.in) ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-     public void showStartScreen()
-     {
-      System.out.println("Welcome to Connect Four!") ;
      }
 
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
+      /**************************************************************************\
+     |*                                                                        *|
+     \**************************************************************************/
+
+       public void showStartScreen()
+       {
+         System.out.println("Welcome to Connect Four!") ;
+       }
+
+      /**************************************************************************\
+     |*                                                                        *|
+     \**************************************************************************/
 
       public void showBoard()
-   {
-      String output = " " ;
-
-      for(int x=0 ; x<COLS ; x++)
       {
-         output += String.format("%-2d", x) ;
-      }
+        String output = " " ;
 
-      output += "\n" ;
+        for(int x=0 ; x<COLS ; x++)
+        {
+          output += String.format("%-2d", x) ;
+        }
 
-      for(int i=0 ; i<ROWS ; i++)
-      {
-         output += "|" ;
+        output += "\n" ;
+
+        for(int i=0 ; i<ROWS ; i++)
+        {
+           output += "|" ;
 
          for(int j=0 ; j<COLS ; j++)
          {
             output += board[i][j] + "|" ;
          }
-         output += "\n-" ;
+            output += "\n-" ;
 
          for(int x=0 ; x<COLS ; x++)
          {
@@ -236,118 +236,118 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
       }
 
       System.out.println(output) ;
-   }
+     }
 
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
+     /**************************************************************************\
+     |*                                                                        *|
+     \**************************************************************************/
 
-    public void showUserInputOptions()
-   {
+      public void showUserInputOptions()
+      {
       String player = (isPlayerOneTurn) ? "1" : "2" ;
 
       System.out.print("Player " + player + " select any number from 0 to " + (COLS-1) + ": ") ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-    public int getUserInput()
-   {
-      if(keyboard.hasNextInt())
-      {
-         return keyboard.nextInt() ;
       }
-      else
-      {
-         keyboard.next() ;
-         return -1 ;
-      }
-   }
-      /**************************************************************************\
-     |*                                                                        *|
-     \**************************************************************************/
-      public boolean checkUserInput(int input)
-     {
-      if(input < 0 || input >= COLS)
-      {
+
+       /**************************************************************************\
+       |*                                                                        *|
+       \**************************************************************************/
+
+        public int getUserInput()
+        {
+         if(keyboard.hasNextInt())
+         {
+           return keyboard.nextInt() ;
+         }
+         else
+         {
+           keyboard.next() ;
+           return -1 ;
+         }
+       }
+        /**************************************************************************\
+        |*                                                                        *|
+        \**************************************************************************/
+        public boolean checkUserInput(int input)
+        {
+         if(input < 0 || input >= COLS)
+         {
          System.out.println("You MORON, READ OR FEAR THE DARK SIDE OF THE FORCE IF NOT THEN SUFFER THE WRATH OF NARUTO UZUMAKI THE             NINE TAILS JINCHURIKI") ;
 
-         return false ;
-      }
-
-      if(isColumnFull(input))
-      {
-         System.out.println("That column is full, DUMBASS!") ;
-
-         return false ;
-      }
-
-      return true ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public boolean isColumnFull(int col)
-   {
-      return (board[0][col] != EMPTY) ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public void processUserInput(int input)
-   {
-      for(int i=ROWS-1 ; i>=0 ; i--)
-      {
-         if(isEmpty(i, input))
-         {
-            board[i][input] = isPlayerOneTurn ? RED : BLACK ;
-
-            break ;
+          return false ;
          }
-      }
-   }
 
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-     public boolean isEmpty(int row, int col)
-     {
-      return (board[row][col] == EMPTY) ;
-     }
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-     public void updateGameState()
-     {
-      isPlayerOneTurn = !isPlayerOneTurn ;
-     }
-    /**************************************************************************\
-    |*                                                                        *|
-    \**************************************************************************/
-     public boolean isGameOver()
-     {
-      System.out.println("Checking if game is over.") ;
-      
-      return checkWin(RED) || checkWin(BLACK) || checkDraw() ;
-     }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-    public boolean checkWin(String m)
-    {
-      for(int i=0 ; i<ROWS ; i++)
-      {
-         for(int j=0 ; j<COLS ; j++)
+         if(isColumnFull(input))
          {
-            if(checkColWin(i, j, m) ||
+            System.out.println("That column is full, DUMBASS!") ;
+
+            return false ;
+          }
+
+          return true ;
+        }
+
+       /**************************************************************************\
+       |*                                                                        *|
+       \**************************************************************************/
+
+       public boolean isColumnFull(int col)
+       {
+          return (board[0][col] != EMPTY) ;
+       }
+
+        /**************************************************************************\
+        |*                                                                        *|
+         \**************************************************************************/
+
+         public void processUserInput(int input)
+         {
+           for(int i=ROWS-1 ; i>=0 ; i--)
+           {
+             if(isEmpty(i, input))
+            {
+               board[i][input] = isPlayerOneTurn ? RED : BLACK ;
+
+               break ;
+            }
+          }
+       }
+
+        /**************************************************************************\
+        |*                                                                        *|
+       \**************************************************************************/
+         public boolean isEmpty(int row, int col)
+         {
+          return (board[row][col] == EMPTY) ;
+         }
+        /**************************************************************************\
+        |*                                                                        *|
+        \**************************************************************************/
+         public void updateGameState()
+         {
+           isPlayerOneTurn = !isPlayerOneTurn ;
+         }
+        /**************************************************************************\
+        |*                                                                        *|
+        \**************************************************************************/
+         public boolean isGameOver()
+        {
+         System.out.println("Checking if game is over.") ;
+      
+         return checkWin(RED) || checkWin(BLACK) || checkDraw() ;
+        }
+
+       /**************************************************************************\
+      |*                                                                        *|
+      \**************************************************************************/
+
+       public boolean checkWin(String m)
+       {
+         for(int i=0 ; i<ROWS ; i++)
+         {
+            for(int j=0 ; j<COLS ; j++)
+            {
+               if(checkColWin(i, j, m) ||
                checkRowWin(i, j, m) ||
                checkUpDiagonalWin(i, j, m) ||
                checkDownDiagonalWin(i, j, m))
@@ -355,80 +355,80 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
                return true ;
             }
          }
+       }
+         return false ;
       }
-       return false ;
-     }
-    /**************************************************************************\
-    |*                                                                        *|
-    \**************************************************************************/
-    public boolean checkColWin(int r, int c, String m)
-    {
-      if(r <= ROWS-4)
-      {
-         return board[r+0][c] == m &&
-                board[r+1][c] == m &&
-                board[r+2][c] == m &&
-                board[r+3][c] == m ;
-      }
-      return false ;
-     }
-    /**************************************************************************\
-    |*                                                                        *|
-    \**************************************************************************/
+        /**************************************************************************\
+        |*                                                                        *|
+        \**************************************************************************/
+        public boolean checkColWin(int r, int c, String m)
+        {
+          if(r <= ROWS-4)
+          {
+             return board[r+0][c] == m &&
+                    board[r+1][c] == m &&
+                    board[r+2][c] == m &&
+                    board[r+3][c] == m ;
+          }
+           return false ;
+        }
+        /**************************************************************************\
+        |*                                                                        *|
+        \**************************************************************************/
 
-   public boolean checkRowWin(int r, int c, String m)
-   {
-      if(c <= COLS-4)
-      {
-         return board[r][c+0] == m &&
-                board[r][c+1] == m &&
-                board[r][c+2] == m &&
-                board[r][c+3] == m ;
-      }
+       public boolean checkRowWin(int r, int c, String m)
+       {
+          if(c <= COLS-4)
+          {
+            return board[r][c+0] == m &&
+                   board[r][c+1] == m &&
+                   board[r][c+2] == m &&
+                   board[r][c+3] == m ;
+          }
 
-      return false ;
-   }
+         return false ;
+       }
 
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
+       /**************************************************************************\
+       |*                                                                        *|
+       \**************************************************************************/
 
-   public boolean checkUpDiagonalWin(int r, int c, String m)
-   {
-      if(c <= COLS-4 && r >= 3)
-      {
-         return board[r-0][c+0] == m &&
-                board[r-1][c+1] == m &&
-                board[r-2][c+2] == m &&
-                board[r-3][c+3] == m ;
-      }
-
-      return false ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public boolean checkDownDiagonalWin(int r, int c, String m)
-   {
-      if(c <= COLS-4 && r <= ROWS-4)
-      {
-         return board[r+0][c+0] == m &&
-                board[r+1][c+1] == m &&
-                board[r+2][c+2] == m &&
-                board[r+3][c+3] == m ;
+        public boolean checkUpDiagonalWin(int r, int c, String m)
+        {
+           if(c <= COLS-4 && r >= 3)
+           {
+            return board[r-0][c+0] == m &&
+                   board[r-1][c+1] == m &&
+                   board[r-2][c+2] == m &&
+                   board[r-3][c+3] == m ;
       }
 
       return false ;
    }
 
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
+       /**************************************************************************\
+      |*                                                                        *|
+      \**************************************************************************/
 
-   public boolean checkDraw()
-   {
+       public boolean checkDownDiagonalWin(int r, int c, String m)
+       {
+          if(c <= COLS-4 && r <= ROWS-4)
+         {
+            return board[r+0][c+0] == m &&
+                   board[r+1][c+1] == m &&
+                   board[r+2][c+2] == m &&
+                   board[r+3][c+3] == m ;
+         }
+
+          return false ;
+       }
+
+       /**************************************************************************\
+       |*                                                                        *|
+       \**************************************************************************/
+
+       public boolean checkDraw()
+       {
       for(int i=0 ; i<COLS ; i++)
       {
          if(!isColumnFull(i))
@@ -437,30 +437,30 @@ Implementa un juego de "Connect Four" que se conecte a una base de datos.  La ba
          }
       }
 
-      return true ;
-   }
-
-   /**************************************************************************\
-   |*                                                                        *|
-   \**************************************************************************/
-
-   public void showGameOverScreen()
-   {
-      showBoard() ;
-
-      System.out.println("Game Over!") ;
-
-      if(checkWin(RED))
-      {
-         System.out.println("Player 1 Won!") ;
+        return true ;
       }
-      else if(checkWin(BLACK))
-      {
-         System.out.println("Player 2 Won!") ;
-      }
-      else
-      {
-         System.out.println("Draw!") ;
-      }
-   }
-}
+
+      /**************************************************************************\
+      |*                                                                        *|
+      \**************************************************************************/
+
+       public void showGameOverScreen()
+       {
+         showBoard() ;
+
+        System.out.println("Game Over!") ;
+
+         if(checkWin(RED))
+         {
+            System.out.println("Player 1 Won!") ;
+         }
+         else if(checkWin(BLACK))
+         {
+          System.out.println("Player 2 Won!") ;
+         }
+         else
+         {
+          System.out.println("Draw!") ;
+         }
+        }
+       }
